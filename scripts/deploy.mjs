@@ -70,8 +70,8 @@ async function main() {
     await run('git', ['commit', '-m', commitMessage]);
   }
 
-  stage(`Pushing ${process.env.DEPLOY_BRANCH} to origin`);
-  await run('git', ['push', 'origin', process.env.DEPLOY_BRANCH]);
+  //stage(`Pushing ${process.env.DEPLOY_BRANCH} to origin`);
+  //await run('git', ['push', 'origin', process.env.DEPLOY_BRANCH]);
   const commit = await capture('git', ['rev-parse', 'HEAD']);
   const bucket = process.env.S3_BUCKET;
 
