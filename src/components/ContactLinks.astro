@@ -1,0 +1,11 @@
+---
+import { site, isRealUrl } from '../data/site';
+import CvLink from './CvLink.astro';
+---
+<div class="contact-grid">
+  <div><span>Email</span><a href={`mailto:${site.email}`}>{site.email}</a></div>
+  <div><span>GitHub</span>{isRealUrl(site.github) ? <a href={site.github} rel="noopener noreferrer" target="_blank">Vince on GitHub <span class="sr-only">(opens in a new tab)</span></a> : <span class="placeholder">{site.github}</span>}</div>
+  <div><span>LinkedIn</span>{isRealUrl(site.linkedin) ? <a href={site.linkedin} rel="noopener noreferrer" target="_blank">Vince on LinkedIn <span class="sr-only">(opens in a new tab)</span></a> : <span class="placeholder">{site.linkedin}</span>}</div>
+  <div><span>Location</span><span class="placeholder">{site.location}</span></div>
+  <div><span>CV</span><CvLink /></div>
+</div>

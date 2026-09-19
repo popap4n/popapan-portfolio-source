@@ -1,0 +1,20 @@
+---
+import { site, isRealUrl } from '../data/site';
+import CvLink from './CvLink.astro';
+import MediaPlaceholder from './MediaPlaceholder.astro';
+---
+<section class="hero container" aria-labelledby="hero-title">
+  <div class="hero-copy">
+    <p class="eyebrow">Portfolio / Graduate Games Programmer</p>
+    <h1 id="hero-title">Vince Benitez<span class="title-period">.</span></h1>
+    <p class="hero-role">Graduate Games Programmer</p>
+    <p class="hero-lead">Hi, I’m Vince Benitez, a Computer Games Programming graduate focused on gameplay systems, player engagement and interactive experiences.</p>
+    <p>I work with C++, C#, Unity, Unreal Engine and Godot, and I am seeking a graduate or junior games-programming role.</p>
+    <div class="button-row"><a class="button button-primary" href="/projects/">View projects <span aria-hidden="true">→</span></a><CvLink className="button button-secondary" /></div>
+    <div class="hero-socials">
+      {isRealUrl(site.github) ? <a href={site.github} rel="noopener noreferrer" target="_blank">GitHub <span class="sr-only">(opens in a new tab)</span></a> : <span class="placeholder">{site.github}</span>}
+      {isRealUrl(site.linkedin) ? <a href={site.linkedin} rel="noopener noreferrer" target="_blank">LinkedIn <span class="sr-only">(opens in a new tab)</span></a> : <span class="placeholder">{site.linkedin}</span>}
+    </div>
+  </div>
+  <MediaPlaceholder className="hero-visual" label="[REPLACE: Professional photograph, illustration or appropriate programming visual]" />
+</section>

@@ -1,0 +1,8 @@
+---
+interface Props { title: string; items: string[]; }
+const { title, items } = Astro.props;
+---
+<div class="skill-group">
+  <h3>{title}</h3>
+  <ul>{items.map((item) => <li class:list={{ placeholder: item.startsWith('[REPLACE:') }}>{item}</li>)}</ul>
+</div>

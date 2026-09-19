@@ -1,0 +1,15 @@
+---
+import { isRealUrl } from '../data/site';
+interface Props { repository?: string; playableBuild?: string; video?: string; technicalDocumentation?: string; }
+const { repository, playableBuild, video, technicalDocumentation } = Astro.props;
+const links = [
+  { label: 'Source repository', url: repository },
+  { label: 'Playable build', url: playableBuild },
+  { label: 'Demonstration video', url: video },
+  { label: 'Technical documentation', url: technicalDocumentation },
+].filter((item) => isRealUrl(item.url));
+---
+<div class="project-links">
+  <h2>Project links</h2>
+  {links.length ? <ul class="link-list">{links.map((link) => <li><a href={link.url} target="_blank" rel="noopener noreferrer">{link.label} <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></li>)}</ul> : <p class="placeholder">[REPLACE: Add a public repository, playable build, demonstration video or technical documentation URL when available]</p>}
+</div>

@@ -1,0 +1,22 @@
+---
+import { site } from '../data/site';
+import CvLink from './CvLink.astro';
+const path = Astro.url.pathname;
+const nav = [
+  { href: '/', label: 'Home' },
+  { href: '/projects/', label: 'Projects' },
+  { href: '/about/', label: 'About' },
+];
+---
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="wordmark" href="/" aria-label={`${site.name}, home`}>Vince <span>Benitez</span><b aria-hidden="true">.</b></a>
+    <nav aria-label="Primary navigation">
+      <ul class="nav-list">
+        {nav.map((item) => <li><a href={item.href} aria-current={path === item.href || (item.href === '/projects/' && path.startsWith('/projects/')) ? 'page' : undefined}>{item.label}</a></li>)}
+        <li><CvLink label="CV" /></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>

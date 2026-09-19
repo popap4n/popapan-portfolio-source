@@ -1,0 +1,7 @@
+---
+import { hasCv } from '../data/assets';
+import { site } from '../data/site';
+interface Props { label?: string; className?: string; }
+const { label = 'Download CV', className = '' } = Astro.props;
+---
+{hasCv ? <a class={className} href={site.cv} download>{label}</a> : <span class:list={[className, 'disabled-link']} aria-label="CV pending publication">{label} <small class="placeholder">[REPLACE: Add CV PDF to enable download]</small></span>}

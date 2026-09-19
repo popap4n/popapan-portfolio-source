@@ -1,0 +1,54 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import MediaPlaceholder from '../components/MediaPlaceholder.astro';
+import ProjectLinks from '../components/ProjectLinks.astro';
+import { isRealMediaPath, isRealUrl } from '../data/site';
+interface Props { project: CollectionEntry<'projects'>; }
+const { project } = Astro.props;
+const d = project.data;
+const typeLabel = d.projectType === 'unspecified' ? '[REPLACE: Individual or team project]' : `${d.projectType === 'team' ? 'Team' : 'Individual'} project`;
+---
+<BaseLayout title={`${d.title} | Vince Benitez`} description={d.summary}>
+  <div class="container">
+    <header class="project-detail-header">
+      <a class="back-link" href="/projects/">← All projects</a>
+      <p class="eyebrow">Project case study / {d.context}</p>
+      <h1>{d.title}</h1>
+      <p class="lead">{d.summary}</p>
+    </header>
+    <div class="detail-layout">
+      <div class="detail-main">
+        <div class="detail-hero-media">{isRealMediaPath(d.image) ? <img src={d.image} alt={d.imageAlt} width="960" height="540" /> : <MediaPlaceholder label={d.image} />}</div>
+        <section class="detail-section" aria-labelledby="overview-heading">
+          <h2 id="overview-heading">Project overview</h2>
+          <p class="placeholder">[REPLACE: Explain what the project is, its genre or technical purpose, and the player or user experience]</p>
+          <p>{d.summary}</p>
+        </section>
+        <section class="detail-section" aria-labelledby="demo-heading">
+          <h2 id="demo-heading">Demonstration</h2>
+          <p>Show the feature or gameplay in action, with enough context to understand Vince’s contribution.</p>
+          <div class="demo-media">{isRealUrl(d.video) ? <a class="button button-secondary" href={d.video} target="_blank" rel="noopener noreferrer">Watch demonstration video <span class="sr-only">(opens in a new tab)</span> ↗</a> : <MediaPlaceholder label="[REPLACE: 30 to 90 second gameplay or technical demonstration]" />}</div>
+          <h3>Screenshots</h3>
+          <div class="screenshot-grid">
+            {d.screenshots?.length ? d.screenshots.map((shot) => isRealMediaPath(shot.image) ? <img src={shot.image} alt={shot.alt} loading="lazy" width="800" height="500" /> : <MediaPlaceholder label={shot.image} />) : <><MediaPlaceholder label="[REPLACE: Screenshot of a key feature; add alt text describing what is visible]" /><MediaPlaceholder label="[REPLACE: Second screenshot showing a different system or result; add descriptive alt text]" /></>}
+          </div>
+        </section>
+        <div class="case-study-content"><slot /></div>
+        <section class="detail-section"><ProjectLinks repository={d.repository} playableBuild={d.playableBuild} video={d.video} technicalDocumentation={d.technicalDocumentation} /></section>
+      </div>
+      <aside class="detail-sidebar" aria-labelledby="facts-heading">
+        <h2 id="facts-heading">At a glance</h2>
+        <dl>
+          <div><dt>Genre / purpose</dt><dd class="placeholder">[REPLACE: Genre or project type]</dd></div>
+          <div><dt>Engine</dt><dd class:list={{ placeholder: d.engine.startsWith('[REPLACE:') }}>{d.engine}</dd></div>
+          <div><dt>Languages</dt><dd>{d.languages.join(', ')}</dd></div>
+          <div><dt>Tools</dt><dd>{d.tools.join(', ')}</dd></div>
+          <div><dt>Dates</dt><dd class="placeholder">{d.startDate} – {d.endDate}</dd></div>
+          <div><dt>Project type</dt><dd class:list={{ placeholder: d.projectType === 'unspecified' }}>{typeLabel}</dd></div>
+          <div><dt>Vince’s role</dt><dd class:list={{ placeholder: d.role.startsWith('[REPLACE:') }}>{d.role}</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>

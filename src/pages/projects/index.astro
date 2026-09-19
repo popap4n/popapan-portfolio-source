@@ -1,0 +1,9 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+---
+<BaseLayout title="Projects | Vince Benitez" description="Explore Vince Benitez’s games-programming project case studies, technical decisions and demonstrations.">
+  <div class="container"><header class="page-intro"><p class="eyebrow">The work</p><h1>Projects<span class="title-period">.</span></h1><p>Each case study is structured around my programming contribution, the technical problem and how the result was tested. Project details and media marked for replacement are awaiting publication.</p></header><section class="section" aria-label="All projects"><div class="project-grid">{projects.map((project) => <ProjectCard project={project} showDates />)}</div></section></div>
+</BaseLayout>

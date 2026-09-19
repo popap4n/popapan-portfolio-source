@@ -1,0 +1,18 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import SkillGroup from '../components/SkillGroup.astro';
+import AboutSummary from '../components/AboutSummary.astro';
+import ContactLinks from '../components/ContactLinks.astro';
+const projects = (await getCollection('projects')).filter((p) => p.data.featured).sort((a, b) => a.data.order - b.data.order);
+---
+<BaseLayout title="Vince Benitez | Graduate Games Programmer" description="Portfolio of Vince Benitez, a Computer Games Programming graduate focused on gameplay systems, player engagement and interactive experiences.">
+  <Hero />
+  <section class="section" aria-labelledby="featured-heading"><div class="container"><SectionHeading eyebrow="Selected work" title="Featured projects" id="featured-heading" description="Case studies will show the code, decisions and iteration behind each project." /><div class="project-grid">{projects.map((project) => <ProjectCard project={project} />)}</div><p class="section-action"><a class="text-link" href="/projects/">Explore all projects →</a></p></div></section>
+  <section class="section" aria-labelledby="skills-heading"><div class="container"><SectionHeading eyebrow="Technical toolkit" title="Skills and interests" id="skills-heading" description="Languages, engines and tools used in coursework and personal practice." /><div class="skills-grid"><SkillGroup title="Languages" items={['C++', 'C#', 'Python', 'HTML']} /><SkillGroup title="Game engines" items={['Unity', 'Unreal Engine', 'Godot']} /><SkillGroup title="Tools" items={['Git', 'GitHub', 'Blender', '[REPLACE: IDEs and other tools genuinely used]']} /><SkillGroup title="Interests" items={['Gameplay programming', 'Player engagement', 'Interactive narrative', '[REPLACE: Other genuine technical interests]']} /></div></div></section>
+  <section class="section"><div class="container"><AboutSummary /></div></section>
+  <section class="section" id="contact" aria-labelledby="contact-heading"><div class="container"><SectionHeading eyebrow="Get in touch" title="Contact" id="contact-heading" description="For graduate or junior games-programming opportunities, email is the best way to reach me." /><ContactLinks /></div></section>
+</BaseLayout>
